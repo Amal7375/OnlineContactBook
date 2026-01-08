@@ -88,14 +88,14 @@ app.post('/update', async (req, res) => {
 
 // Delete Contact
 app.delete('/delete', async (req, res) => {
-    const {number} = req.body;
+    const {id} = req.body;
 
     try {
         let connection = await mysql.createConnection(dbConfig);
 
         await connection.execute(
-            'DELETE FROM defaultdb.contacts WHERE number = ?;',
-            [number]
+            'DELETE FROM defaultdb.contacts WHERE id = ?',
+            [id]
 
         );
 
