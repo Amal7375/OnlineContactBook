@@ -29,7 +29,7 @@ app.listen(port, () => {
 app.get('/allcontacts', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const[rows] = await connection.execute('SELECT * FROM constacts');
+        const[rows] = await connection.execute('SELECT * FROM defaultdb.contacts');
         res.json(rows);
     } catch (err) {
         console.error(err);
@@ -45,7 +45,7 @@ app.post('/add', async (req, res) => {
         let connection = await mysql.createConnection(dbConfig);
 
         await connection.execute(
-            'INSERT INTO contacts (name, number, image) VALUES (?, ?, ?)',
+            'INSERT INTO defaultdb.contacts (name, number, image) VALUES (?, ?, ?)',
             [name, number, image],
         );
 
@@ -69,7 +69,7 @@ app.post('/update', async (req, res) => {
         let connection = await mysql.createConnection(dbConfig);
 
         await connection.execute(
-            'UPDATE contacts SET name = ? , number = ?, image = ? WHERE id = ?',
+            'UPDATE defaultdb.contacts SET name = ? , number = ?, image = ? WHERE id = ?',
             [name, number, image, id],
 
         );
@@ -94,7 +94,7 @@ app.delete('/delete', async (req, res) => {
         let connection = await mysql.createConnection(dbConfig);
 
         await connection.execute(
-            'DELETE FROM contacts WHERE number = ?;',
+            'DELETE FROM defaultdb.contacts WHERE number = ?;',
             [number]
 
         );
