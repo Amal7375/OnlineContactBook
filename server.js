@@ -29,7 +29,7 @@ app.listen(port, () => {
 app.get('/allcontacts', async (req, res) => {
     try {
         let connection = await mysql.createConnection(dbConfig);
-        const[rows] = await connection.execute('SELECT * FROM defaultdb.contacts');
+        const[rows] = await connection.execute('SELECT * FROM constacts');
         res.json(rows);
     } catch (err) {
         console.error(err);
@@ -75,7 +75,7 @@ app.post('/update', async (req, res) => {
         );
 
         res.status(201).json({
-            message: `Contact ${name} added successfully`
+            message: `Contact ${name} updated successfully`
         });
 
     } catch (err) {
@@ -87,7 +87,7 @@ app.post('/update', async (req, res) => {
 });
 
 // Delete Contact
-app.post('/delete', async (req, res) => {
+app.delete('/delete', async (req, res) => {
     const {number} = req.body;
 
     try {
@@ -95,7 +95,7 @@ app.post('/delete', async (req, res) => {
 
         await connection.execute(
             'DELETE FROM contacts WHERE number = ?;',
-            number
+            [number]
 
         );
 
