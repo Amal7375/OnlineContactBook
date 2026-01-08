@@ -88,7 +88,7 @@ app.post('/update', async (req, res) => {
 
 // Delete Contact
 app.delete('/delete', async (req, res) => {
-    const {id} = req.body;
+    const { id } = req.query;
 
     try {
         let connection = await mysql.createConnection(dbConfig);
